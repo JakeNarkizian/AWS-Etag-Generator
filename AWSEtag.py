@@ -2,9 +2,7 @@ import argparse
 import hashlib
 import os
 
-part_size = 2**20 * 50
-
-def getEtag(localFilePath):
+def getEtag(localFilePath, part_size):
     with open(localFilePath, 'r') as f:
         curr = 0
         hash_list = []
@@ -17,5 +15,6 @@ def getEtag(localFilePath):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('path')
+    parser.add_argument('part_size', type=int, nargs='?', default=(2**20 * 50))
     args = parser.parse_args()
-    print getEtag(args.path)
+    print getEtag(args.path, args.part_size)
